@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FlowTimer.UI": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Danie\\Documents\\Workspace\\Personal\\FlowTimer\\FlowTimer.Data"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="FlowTimer.UI.Components.ItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:con="clr-namespace:FlowTimer.UI.Components.Converters"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d"
+             d:DesignHeight="40"
+             d:DesignWidth="810"
+             Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <con:BoolToStrikethrough x:Key="BoolToStrikethrough"></con:BoolToStrikethrough>
+    </UserControl.Resources>
+    <Grid Margin="4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.042*"></ColumnDefinition>
+            <ColumnDefinition Width="0.7*"></ColumnDefinition>
+            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32px"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="#4AF626"
+                BorderThickness="1"
+                Grid.Column="0"
+                Margin="0,0,2,0"
+                >
+            <TextBlock Width="28px"
+                       TextAlignment="Center"
+                       FontSize="16"
+                       Text="{Binding TotalTime}" />
+        </Border>
+        <TextBox Height="32px"
+                 Grid.Column="1"
+                 x:Name="TaskName"
+                 FontSize="16"
+                 Margin="2,0,2,0"
+                 Padding="2,0,2,0"
+                 TextDecorations="{Binding IsChecked, Converter={StaticResource BoolToStrikethrough}}"
+                 Text="{Binding Text}">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding TextEnterCommand}"
+                            CommandParameter="{Binding Text, ElementName=TaskName}"
+                            Key="Enter" />
+            </TextBox.InputBindings>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="LostFocus">
+                    <i:InvokeCommandAction Command="{Binding TextEnterCommand}"
+                                           CommandParameter="{Binding Text, ElementName=TaskName}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <Button Grid.Column="2"
+                FontSize="16"
+                Content="{Binding CurrentTimeText}"
+                Command="{Binding StartTimerCommand}"
+                Margin="2,0,2,0"></Button>
+        <CheckBox Grid.Column="3"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Right"
+                  Margin="2,0,0,0"
+                  Command="{Binding CheckboxCheckedCommand}"
+                  IsChecked="{Binding IsChecked}">
+        </CheckBox>
+    </Grid>
+</UserControl>
